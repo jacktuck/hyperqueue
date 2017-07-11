@@ -1,0 +1,22 @@
+{
+  "name": "meeseek",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "bee-queue": "^0.3.0",
+    "debug": "^2.6.8"
+  },
+  "devDependencies": {
+    "ioredis": "^3.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
