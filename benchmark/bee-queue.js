@@ -14,11 +14,6 @@ let runs = parseInt(process.env.RUNS) || 1
 ;(async () => {
   let results = []
 
-  setInterval(function () {
-    console.log(process._getActiveHandles().length)
-  }, 1000)
-
-
   let makeLog = () => usage.lookup(process.pid, (err, usage) => {
     if (err) debug('err', err)
 
@@ -36,9 +31,6 @@ let runs = parseInt(process.env.RUNS) || 1
     debug(JSON.stringify(o, null, 4))
   })
   var addSomejobs = function () {
-    finished = 0
-    startTime = (new Date()).getTime()
-
     for (var i = 0; i < jobs; i++) {
       queue.createJob({i: i}).save()
     }
@@ -56,6 +48,9 @@ let runs = parseInt(process.env.RUNS) || 1
 
       if (++ran < runs) addSomejobs()
       else makeLog()
+
+      finished = 0
+      startTime = (new Date()).getTime()
     }
   }
 
@@ -64,5 +59,6 @@ let runs = parseInt(process.env.RUNS) || 1
     return done()
   })
 
+  startTime = (new Date()).getTime()
   addSomejobs()
 })().catch(debug)

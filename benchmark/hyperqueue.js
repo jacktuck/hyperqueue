@@ -1,5 +1,5 @@
 let usage = require('usage')
-let debug = require('debug')('meeseek')
+let debug = require('debug')('hyperqueue')
 
 let Queue = require('../lib/Queue')
 let Redis = require('ioredis')
@@ -13,10 +13,6 @@ let runs = parseInt(process.env.RUNS) || 1
 
 ;(async () => {
   let results = []
-
-  setInterval(function () {
-    console.log(process._getActiveHandles().length)
-  }, 1000)
 
   let makeLog = () => usage.lookup(process.pid, (err, usage) => {
     if (err) debug('err', err)
@@ -58,7 +54,7 @@ let runs = parseInt(process.env.RUNS) || 1
     }
   }
 
-  await queue.process(async function (job, done) {
+  await queue.process(async function (job) {
     reportResult()
   })
 
