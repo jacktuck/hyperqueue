@@ -31,16 +31,18 @@ let runs = parseInt(process.env.RUNS) || 1
     debug(JSON.stringify(o, null, 4))
   })
   var addSomejobs = function () {
-    // debug('adding some jobs')
+    finished = 0
+    startTime = (new Date()).getTime()
+
     for (var i = 0; i < jobs; i++) {
       queue.createJob({i: i}).save()
     }
   }
 
-  var reportResult = async function (result) {
+  var reportResult = function (result) {
     finished += 1
 
-    // debug(finished, '/', jobs)
+    debug(finished, '/', jobs)
 
     if (finished === jobs) {
       finishTime = (new Date()).getTime()
@@ -49,9 +51,6 @@ let runs = parseInt(process.env.RUNS) || 1
 
       if (++ran < runs) addSomejobs()
       else makeLog()
-
-      finished = 0
-      startTime = (new Date()).getTime()
     }
   }
 
@@ -59,8 +58,6 @@ let runs = parseInt(process.env.RUNS) || 1
     reportResult()
     return done()
   })
-
-  startTime = (new Date()).getTime()
 
   addSomejobs()
 })().catch(debug)

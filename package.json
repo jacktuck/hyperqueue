@@ -1,5 +1,5 @@
 {
-  "name": "meeseek",
+  "name": "hyperqueue",
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
@@ -11,6 +11,7 @@
     "debug": "^2.6.8",
     "flat": "^2.0.1",
     "hyperid": "^1.2.0",
+    "redis": "^2.7.1",
     "uuid": "^3.1.0"
   },
   "devDependencies": {

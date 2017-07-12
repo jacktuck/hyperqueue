@@ -31,7 +31,6 @@ let runs = parseInt(process.env.RUNS) || 1
   })
 
   var addSomejobs = function () {
-    // debug('adding some jobs')
     for (var i = 0; i < jobs; i++) {
       queue.add({i: i})
     }
@@ -40,7 +39,7 @@ let runs = parseInt(process.env.RUNS) || 1
   var reportResult = function (result) {
     finished += 1
 
-    // debug(finished, '/', jobs)
+    debug(finished, '/', jobs)
 
     if (finished === jobs) {
       finishTime = (new Date()).getTime()
@@ -60,6 +59,5 @@ let runs = parseInt(process.env.RUNS) || 1
   })
 
   startTime = (new Date()).getTime()
-
   addSomejobs()
 })().catch(debug)
