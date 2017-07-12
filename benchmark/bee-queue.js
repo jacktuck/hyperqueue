@@ -39,7 +39,7 @@ let runs = parseInt(process.env.RUNS) || 1
   var reportResult = function (result) {
     finished += 1
 
-    // debug(finished, '/', jobs)
+    debug(finished, '/', jobs)
 
     if (finished === jobs) {
       finishTime = (new Date()).getTime()
