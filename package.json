@@ -8,10 +8,14 @@
   },
   "dependencies": {
     "bee-queue": "^0.3.0",
-    "debug": "^2.6.8"
+    "debug": "^2.6.8",
+    "flat": "^2.0.1",
+    "hyperid": "^1.2.0",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
-    "ioredis": "^3.1.1"
+    "ioredis": "^3.1.1",
+    "usage": "^0.7.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
