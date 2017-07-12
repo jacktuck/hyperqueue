@@ -14,6 +14,11 @@ let runs = parseInt(process.env.RUNS) || 1
 ;(async () => {
   let results = []
 
+  setInterval(function () {
+    console.log(process._getActiveHandles().length)
+  }, 1000)
+
+
   let makeLog = () => usage.lookup(process.pid, (err, usage) => {
     if (err) debug('err', err)
 
@@ -42,7 +47,7 @@ let runs = parseInt(process.env.RUNS) || 1
   var reportResult = function (result) {
     finished += 1
 
-    debug(finished, '/', jobs)
+    // debug(finished, '/', jobs)
 
     if (finished === jobs) {
       finishTime = (new Date()).getTime()
