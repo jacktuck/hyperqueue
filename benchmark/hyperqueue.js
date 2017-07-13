@@ -1,9 +1,11 @@
 let usage = require('usage')
-let debug = require('debug')('hyperqueue')
+let debug = require('debug')('hyperqueue-benchmark')
 
 let Queue = require('../lib/Queue')
 let Redis = require('ioredis')
-let queue = new Queue('test', new Redis())
+let queue = new Queue('test', new Redis({
+  // enableOfflineQueue: false
+}))
 
 let finished = ran = 0
 let finishTime, startTime
@@ -30,16 +32,25 @@ let runs = parseInt(process.env.RUNS) || 1
     debug(JSON.stringify(o, null, 4))
   })
 
-  var addSomejobs = function () {
+  var addSomejobs = async function () {
+    let added = 0
+
     for (var i = 0; i < jobs; i++) {
-      queue.add({i: i})
+      await queue.add({i: i}).then(() => {
+        added++
+        if ((added % 1000) === 0) {
+          debug('Added', added, '/', jobs)
+        }
+      })
     }
   }
 
   var reportResult = function (result) {
     finished += 1
 
-    debug(finished, '/', jobs)
+    if ((finished % 1000) === 0) {
+      debug('Processed', finished, '/', jobs)
+    }
 
     if (finished === jobs) {
       finishTime = (new Date()).getTime()

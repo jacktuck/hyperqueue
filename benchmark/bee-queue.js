@@ -1,5 +1,5 @@
 let usage = require('usage')
-let debug = require('debug')('bee-queue')
+let debug = require('debug')('bee-queue-benchmark')
 
 let Queue = require('bee-queue')
 let queue = new Queue('test')
@@ -31,7 +31,14 @@ let runs = parseInt(process.env.RUNS) || 1
     debug(JSON.stringify(o, null, 4))
   })
   var addSomejobs = function () {
+    let added = 0
+
     for (var i = 0; i < jobs; i++) {
+      added++
+      if ((added % 1000) === 0) {
+        debug('Added', added, '/', jobs)
+      }
+
       queue.createJob({i: i}).save()
     }
   }
@@ -39,7 +46,9 @@ let runs = parseInt(process.env.RUNS) || 1
   var reportResult = function (result) {
     finished += 1
 
-    debug(finished, '/', jobs)
+    if ((finished % 1000) === 0) {
+      debug('Processed', finished, '/', jobs)
+    }
 
     if (finished === jobs) {
       finishTime = (new Date()).getTime()
