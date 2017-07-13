@@ -34,12 +34,13 @@ let runs = parseInt(process.env.RUNS) || 1
     let added = 0
 
     for (var i = 0; i < jobs; i++) {
-      added++
-      if ((added % 1000) === 0) {
-        debug('Added', added, '/', jobs)
-      }
+      queue.createJob({i: i}).save(() => {
+        added++
 
-      queue.createJob({i: i}).save()
+        if ((added % 1000) === 0) {
+          debug('Added', added, '/', jobs)
+        }
+      })
     }
   }
 

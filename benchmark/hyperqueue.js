@@ -2,10 +2,7 @@ let usage = require('usage')
 let debug = require('debug')('hyperqueue-benchmark')
 
 let Queue = require('../lib/Queue')
-let Redis = require('ioredis')
-let queue = new Queue('test', new Redis({
-  // enableOfflineQueue: false
-}))
+let queue = new Queue('test').redis()
 
 let finished = ran = 0
 let finishTime, startTime
@@ -36,8 +33,9 @@ let runs = parseInt(process.env.RUNS) || 1
     let added = 0
 
     for (var i = 0; i < jobs; i++) {
-      await queue.add({i: i}).then(() => {
+      queue.add({i: i}).then(() => {
         added++
+
         if ((added % 1000) === 0) {
           debug('Added', added, '/', jobs)
         }
@@ -65,7 +63,7 @@ let runs = parseInt(process.env.RUNS) || 1
     }
   }
 
-  await queue.process(async function (job) {
+  queue.process(async function (job) {
     reportResult()
   })
 

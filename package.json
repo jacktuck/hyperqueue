@@ -21,8 +21,8 @@
     "flush": "redis-cli FLUSHALL",
     "flushScripts": "redis-cli SCRIPT FLUSH",
 
-    "hyperQueueCmd": "npm run flush && npm run flushScripts && DEBUG=-io*,* node --harmony --expose-gc benchmark/hyperqueue.js",
-    "beeQueueCmd": "npm run flush && DEBUG=-io*,* node --harmony --expose-gc benchmark/bee-queue.js",
+    "hyperQueueCmd": "npm run flush && npm run flushScripts && DEBUG=-io*,* node --harmony --trace-warnings --expose-gc benchmark/hyperqueue.js",
+    "beeQueueCmd": "npm run flush && DEBUG=-io*,* node --harmony --trace-warnings --expose-gc benchmark/bee-queue.js",
 
     "benchmarkHyperQueue10k": "JOBS=10000 npm run hyperQueueCmd",
     "benchmarkHyperQueue100k": "JOBS=100000 npm run hyperQueueCmd",
